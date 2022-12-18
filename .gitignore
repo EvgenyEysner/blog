@@ -28,6 +28,7 @@ __pycache__
 *.db
 .env
 .venv
+backend/docker-compose.env
 
 # NPM / Yarn
 node_modules/
@@ -62,3 +63,4 @@ backend/staticfiles
 
 # SCSS
 .sass-cache/
+/startbootstrap-clean-blog-gh-pages/

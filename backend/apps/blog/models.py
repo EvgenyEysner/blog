@@ -1,7 +1,9 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth import get_user_model
+
+from blog.managers import PublishedManager
 
 User = get_user_model()
 
@@ -9,7 +11,7 @@ User = get_user_model()
 class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = "DF", _("DRAFT")
-        PUBLISH = "PB", _("PUBLISH")
+        PUBLISH = "PB", _("PUBLISHED")
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     slug = models.SlugField(max_length=250)
@@ -24,6 +26,8 @@ class Post(models.Model):
     # rating = models.IntegerField(default=0, verbose_name="Рейтинг")
     # likes = models.IntegerField(default=0, verbose_name="Понравилось")
     # dislikes = models.IntegerField(default=0, verbose_name="Не понравилось")
+
+    published = PublishedManager()
 
     class Meta:
         ordering = ["-publish"]
