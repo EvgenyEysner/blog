@@ -5,4 +5,4 @@ class PublishedManager(models.Manager):
     def get_queryset(self):
         from .models import Post
 
-        return super().get_queryset().first(status=Post.Status.PUBLISHED)
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
