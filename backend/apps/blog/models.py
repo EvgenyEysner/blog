@@ -16,19 +16,24 @@ class Post(models.Model):
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     # create SEO-friendly URLs for posts By using unique_for_date , the slug field
-    # is now required to be unique for the date stored in the publish field.
+    # is now required to be unique for the date stored in the published field.
     slug = models.SlugField(max_length=250, unique_for_date="publish")
-    publish = models.DateTimeField(auto_now_add=True, verbose_name=_(""))
-    created = models.DateTimeField(default=timezone.now, verbose_name="")
-    updated = models.DateTimeField(auto_now_add=True, verbose_name="")
-    title = models.CharField("Заголовок", max_length=250)
-    body = models.TextField("Текст")
-    status = models.CharField(
-        max_length=2, choices=Status.choices, default=Status.DRAFT
+    publish = models.DateTimeField(
+        auto_now_add=True, verbose_name=_("Veröffentlicht am")
     )
-    # rating = models.IntegerField(default=0, verbose_name="Рейтинг")
-    # likes = models.IntegerField(default=0, verbose_name="Понравилось")
-    # dislikes = models.IntegerField(default=0, verbose_name="Не понравилось")
+    created = models.DateTimeField(default=timezone.now, verbose_name=_("Erstellt am"))
+    updated = models.DateTimeField(auto_now_add=True, verbose_name=_("Aktualisiert am"))
+    title = models.CharField(verbose_name=_("Überschrift"), max_length=250)
+    body = models.TextField(verbose_name=_("Text"))
+    status = models.CharField(
+        max_length=2,
+        choices=Status.choices,
+        default=Status.DRAFT,
+        verbose_name=_("Status"),
+    )
+    rating = models.IntegerField(default=0, verbose_name="Raiting")
+    likes = models.IntegerField(default=0, verbose_name="Gefällt mir")
+    dislikes = models.IntegerField(default=0, verbose_name="Gefällt mir nicht")
 
     published = PublishedManager()
 
