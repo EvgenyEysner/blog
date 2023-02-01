@@ -86,6 +86,7 @@ DJANGO_APPS = (
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "taggit",
 )
 
 THIRD_PARTY_APPS = (
@@ -301,3 +302,10 @@ CELERY_RESULT_BACKEND = "rpc://"
 CELERY_TASK_CREATE_MISSING_QUEUES = True
 CELERY_RETRY_DELAY = 15
 CELERY_RETRY_MAX_TIMES = 15  # 15 retries
+
+# Email server configuration
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_USE_TLS = True

@@ -10,7 +10,38 @@
                     <h2 class="section-heading">{{ post.title }}</h2>
                     <p>{{ post.body|linebreaks }}</p>
                     <span class="caption text-muted">Erstellt am {{ post.publish }} von {{ post.author }}</span>
+                    <p>
+                        <a href="{% url "blog:post_share" post.id %}">
+                            Share this post
+                        </a>
                     </p>
+                    <!-- We use the Django ORM in the template, executing the comments.count() QuerySet. Note that the
+                         Django template language doesn’t use parentheses for calling methods. The {#% with %#} tag allows you
+                         to assign a value to a new variable that will be available in the template until the {#% endwith %#} tag.
+                    -->
+                    {% with comments.count as total_comments %}
+                        <h2>
+                            {{ total_comments }} comment {{ total_comments|pluralize }}
+                        </h2>
+                    {% endwith %}
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <p class="info">
+                                <!--
+                                We enumerate comments with the {#{ forloop.counter }#} variable,
+                                which contains the loop counter in each iteration.
+                                For each post, we display the name of the user who posted it, the date,
+                                and the body of the comment.
+                                -->
+                                Comment {{ forloop.counter }} by {{ comment.name }}
+                                {{ comment.created }}
+                            </p>
+                            {{ comment.body|linebreaks }}
+                        </div>
+                    {% empty %}
+                        <p>There are no comments.</p>
+                    {% endfor %}
+                    {% include "blog/post/includes/comment_form.html" %}
                 </div>
             </div>
         </div>
