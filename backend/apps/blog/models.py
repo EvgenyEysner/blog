@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
+from taggit.managers import TaggableManager
 from blog.managers import PublishedManager
 
 User = get_user_model()
@@ -35,7 +35,9 @@ class Post(models.Model):
     likes = models.IntegerField(default=0, verbose_name="Gefällt mir")
     dislikes = models.IntegerField(default=0, verbose_name="Gefällt mir nicht")
 
+    objects = models.Manager()  # The default manager.
     published = PublishedManager()
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-publish"]

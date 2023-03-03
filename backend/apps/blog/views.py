@@ -1,9 +1,10 @@
-# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 
 from blog.models import Post
 from blog.forms import EmailPostForm, CommentForm
@@ -15,6 +16,27 @@ class PostListView(ListView):
     # Django’s ListView generic view passes the page requested in a variable called page_obj .
     paginate_by = 3
     template_name = "blog/post/list.html"
+
+    # post_list_by_tag view let users list all posts tagged with a specific tag.
+    @staticmethod
+    def post_list_by_tag(request, tag_slug=None):
+        post_list = Post.published.all()
+        tag = None
+        if tag_slug:
+            tag = get_object_or_404(Tag, slug=tag_slug)
+            post_list = post_list.filter(tags__in=[tag])
+        # Pagination with 3 posts per page
+        paginator = Paginator(post_list, 3)
+        page_number = request.GET.get("page", 1)
+        try:
+            posts = paginator.page(page_number)
+        except PageNotAnInteger:
+            # If page_number is not an integer deliver the first page
+            posts = paginator.page(1)
+        except EmptyPage:
+            # If page_number is out of range deliver last page of results
+            posts = paginator.page(paginator.num_pages)
+        return render(request, "blog/post/list.html", {"posts": posts, "tag": tag})
 
 
 class PostListDetailView(DetailView):
@@ -38,8 +60,6 @@ class PostListDetailView(DetailView):
 #         posts = paginator.page(paginator.num_pages)
 #
 #     return render(request, "blog/post/list.html", {"posts": posts})
-#
-#
 
 
 # ToDo create class based View
