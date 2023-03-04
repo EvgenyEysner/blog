@@ -105,6 +105,7 @@ class PostListDetailView(DetailView, FormView):
             request, "blog/post/share.html", {"post": post, "form": form, "sent": sent}
         )
 
+
 ### ----------------- Other ways to implement ------------------------------------------------------------------- ###
 
 # def post_list(request):
