@@ -6,23 +6,25 @@ app_name = "blog"
 
 urlpatterns = [
     # post views
-    # path("", views.post_list, name="post_list"),
     path("", views.PostListView.as_view(), name="post_list"),
     path(
         "tag/<slug:tag_slug>/",
         views.PostListView.post_list_by_tag,
         name="post_list_by_tag",
     ),
-    # path(
-    #     "<int:year>/<int:month>/<int:day>/<slug:post>",
-    #     views.PostListDetailView.as_view(),
-    #     name="post_list",
-    # ),
     path(
         "<int:year>/<int:month>/<int:day>/<slug:post>",
-        views.post_detail,
+        views.PostListDetailView.post_detail,
         name="post_detail",
     ),
-    path("<int:post_id>/share/", views.post_share, name="post_share"),
-    path("<int:post_id>/comment/", views.post_comment, name="post_comment"),
+    path(
+        "<int:post_id>/share/",
+        views.PostListDetailView.post_share,
+        name="post_share",
+    ),
+    path(
+        "<int:post_id>/comment/",
+        views.PostListDetailView.as_view(),
+        name="post_comment",
+    ),
 ]
