@@ -19,6 +19,7 @@ django-db-logger = "==0.1.12"                # Database logging
 freezegun = "==1.2.2"
 model-bakery = "==1.9.0"
 django-taggit = "==3.1.0"
+markdown = "==3.4.1"
 
 [dev-packages]
 
