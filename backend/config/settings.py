@@ -78,6 +78,8 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
+SITE_ID = 1
+
 # Application definition
 DJANGO_APPS = (
     "django.contrib.auth",
@@ -86,6 +88,8 @@ DJANGO_APPS = (
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "taggit",
 )
 
@@ -151,7 +155,6 @@ STATICFILES_DIRS = ("static",)
 ROOT_URLCONF = "config.urls"
 
 FRONTEND_URL = env("DJANGO_FRONTEND_URL")
-
 
 # CORS
 # CORS_ORIGIN_WHITELIST = env.list('DJANGO_CORS_ORIGIN_WHITELIST')
@@ -238,7 +241,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
