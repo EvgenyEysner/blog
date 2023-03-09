@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+from .feeds import LatestPostsFeed
 
 app_name = "blog"
 
@@ -27,4 +28,7 @@ urlpatterns = [
         views.PostListDetailView.as_view(),
         name="post_comment",
     ),
+    # Navigate to http://127.0.0.1:8000/blog/feed/ in your browser. You should now see the RSS feed,
+    # including the last five blog posts.
+    path("feed/", LatestPostsFeed(), name="post_feed"),
 ]
