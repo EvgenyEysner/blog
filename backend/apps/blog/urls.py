@@ -14,6 +14,11 @@ urlpatterns = [
         name="post_list_by_tag",
     ),
     path(
+        "search/",
+        views.PostListView.post_search,
+        name="post_search",
+    ),
+    path(
         "<int:year>/<int:month>/<int:day>/<slug:post>",
         views.PostListDetailView.post_detail,
         name="post_detail",

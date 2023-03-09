@@ -90,6 +90,8 @@ DJANGO_APPS = (
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    # needs for full-text search with postgres
+    "django.contrib.postgres",
     "taggit",
 )
 
